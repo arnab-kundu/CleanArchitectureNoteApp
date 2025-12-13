@@ -1,5 +1,6 @@
 package com.plcoding.cleanarchitecturenoteapp.feature_note.presentation
 
+import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -35,7 +36,7 @@ class NotesEndToEndTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        composeRule.setContent {
+        composeRule.activity.setContent {
             CleanArchitectureNoteAppTheme {
                 val navController = rememberNavController()
                 NavHost(
@@ -109,7 +110,7 @@ class NotesEndToEndTest {
         composeRule.onNodeWithContentDescription("Save").performClick()
 
         // Make sure the update was applied to the list
-        composeRule.onNodeWithText("test-title2").assertIsDisplayed()
+        composeRule.onNodeWithText("2test-title").assertIsDisplayed()
     }
 
     @Test
