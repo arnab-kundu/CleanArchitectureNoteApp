@@ -36,6 +36,7 @@ fun NotesScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.padding(bottom = 52.dp),
                 onClick = {
                     navController.navigate(Screen.AddEditNoteScreen.route)
                 },
@@ -48,6 +49,7 @@ fun NotesScreen(
     ) { it ->
         Column(
             modifier = Modifier.padding(it)
+                .padding(horizontal = 0.dp, vertical = 52.dp)
                 .fillMaxSize()
                 .padding(16.dp)
         ) {

@@ -64,6 +64,7 @@ fun AddEditNoteScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier.padding(bottom = 52.dp),
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
@@ -76,6 +77,7 @@ fun AddEditNoteScreen(
     ) { it ->
         Column(
             modifier = Modifier.padding(it)
+                .padding(horizontal = 0.dp, vertical = 52.dp)
                 .fillMaxSize()
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
