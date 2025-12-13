@@ -4,19 +4,21 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.google.devtools.ksp' // Replace kapt with ksp
 }
 
 android {
-    compileSdk 36
+    namespace = 'com.plcoding.cleanarchitecturenoteapp'
+    compileSdk = 36
 
     defaultConfig {
-        applicationId "com.plcoding.cleanarchitecturenoteapp"
-        minSdk 26
-        targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.plcoding.cleanarchitecturenoteapp"
+        minSdk = 26
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "com.plcoding.cleanarchitecturenoteapp.HiltTestRunner"
+        testInstrumentationRunner = "com.plcoding.cleanarchitecturenoteapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -39,15 +41,13 @@ android {
         compose true
     }
     composeOptions {
-       kotlinCompilerExtensionVersion '1.5.10'
-       // kotlinCompilerVersion '1.4.7'
+        kotlinCompilerExtensionVersion '1.5.10'
     }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.plcoding.cleanarchitecturenoteapp'
 }
 
 dependencies {

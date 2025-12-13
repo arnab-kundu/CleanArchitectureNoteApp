@@ -73,9 +73,9 @@ fun AddEditNoteScreen(
             }
         },
         scaffoldState = scaffoldState
-    ) {
+    ) { it ->
         Column(
-            modifier = Modifier
+            modifier = Modifier.padding(it)
                 .fillMaxSize()
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
