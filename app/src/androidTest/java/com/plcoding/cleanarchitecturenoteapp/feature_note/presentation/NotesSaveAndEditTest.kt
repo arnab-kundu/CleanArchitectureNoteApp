@@ -18,13 +18,14 @@ import com.plcoding.cleanarchitecturenoteapp.ui.theme.CleanArchitectureNoteAppTh
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
-class NotesEndToEndTest {
+class NotesSaveAndEditTest {
 
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
@@ -111,44 +112,5 @@ class NotesEndToEndTest {
 
         // Make sure the update was applied to the list
         composeRule.onNodeWithText("2test-title").assertIsDisplayed()
-    }
-
-    @Test
-    fun saveNewNotes_orderByTitleDescending() {
-        for(i in 1..3) {
-            // Click on FAB to get to add note screen
-            composeRule.onNodeWithContentDescription("Add").performClick()
-
-            // Enter texts in title and content text fields
-            composeRule
-                .onNodeWithTag(TestTags.TITLE_TEXT_FIELD)
-                .performTextInput(i.toString())
-            composeRule
-                .onNodeWithTag(TestTags.CONTENT_TEXT_FIELD)
-                .performTextInput(i.toString())
-            // Save the new
-            composeRule.onNodeWithContentDescription("Save").performClick()
-        }
-
-        composeRule.onNodeWithText("1").assertIsDisplayed()
-        composeRule.onNodeWithText("2").assertIsDisplayed()
-        composeRule.onNodeWithText("3").assertIsDisplayed()
-
-        composeRule
-            .onNodeWithContentDescription("Sort")
-            .performClick()
-        composeRule
-            .onNodeWithContentDescription("Title")
-            .performClick()
-        composeRule
-            .onNodeWithContentDescription("Descending")
-            .performClick()
-
-        composeRule.onAllNodesWithTag(TestTags.NOTE_ITEM)[0]
-            .assertTextContains("3")
-        composeRule.onAllNodesWithTag(TestTags.NOTE_ITEM)[1]
-            .assertTextContains("2")
-        composeRule.onAllNodesWithTag(TestTags.NOTE_ITEM)[2]
-            .assertTextContains("1")
     }
 }
