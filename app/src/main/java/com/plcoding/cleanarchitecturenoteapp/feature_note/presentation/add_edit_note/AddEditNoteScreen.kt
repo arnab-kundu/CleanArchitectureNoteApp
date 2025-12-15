@@ -19,9 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.plcoding.cleanarchitecturenoteapp.R
 import com.plcoding.cleanarchitecturenoteapp.core.util.TestTags
 import com.plcoding.cleanarchitecturenoteapp.feature_note.domain.model.Note
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.add_edit_note.components.TransparentHintTextField
@@ -45,6 +47,8 @@ fun AddEditNoteScreen(
         )
     }
     val scope = rememberCoroutineScope()
+    val deviceSpecificVerticalPadding = dimensionResource(id = R.dimen.device_vertical_padding)
+    val fabPaddingBottom = dimensionResource(id = R.dimen.device_specific_fab_button_padding_bottom)
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
@@ -64,7 +68,7 @@ fun AddEditNoteScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                modifier = Modifier.padding(bottom = 52.dp),
+                modifier = Modifier.padding(bottom = fabPaddingBottom),
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
@@ -77,7 +81,7 @@ fun AddEditNoteScreen(
     ) { it ->
         Column(
             modifier = Modifier.padding(it)
-                .padding(horizontal = 0.dp, vertical = 52.dp)
+                .padding(top = deviceSpecificVerticalPadding)
                 .fillMaxSize()
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)

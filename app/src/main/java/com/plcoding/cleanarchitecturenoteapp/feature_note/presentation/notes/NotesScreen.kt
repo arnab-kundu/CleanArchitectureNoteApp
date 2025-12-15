@@ -5,7 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.IconButton
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
@@ -14,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -22,6 +30,7 @@ import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.com
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components.OrderSection
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
+import com.plcoding.cleanarchitecturenoteapp.R
 
 @ExperimentalAnimationApi
 @Composable
@@ -32,11 +41,13 @@ fun NotesScreen(
     val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val deviceSpecificVerticalPadding = dimensionResource(id = R.dimen.device_vertical_padding)
+    val fabPaddingBottom = dimensionResource(id = R.dimen.device_specific_fab_button_padding_bottom)
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                modifier = Modifier.padding(bottom = 52.dp),
+                modifier = Modifier.padding(bottom = fabPaddingBottom),
                 onClick = {
                     navController.navigate(Screen.AddEditNoteScreen.route)
                 },
@@ -48,10 +59,11 @@ fun NotesScreen(
         scaffoldState = scaffoldState
     ) { it ->
         Column(
-            modifier = Modifier.padding(it)
-                .padding(horizontal = 0.dp, vertical = 52.dp)
+            modifier = Modifier
+                .padding(it)
+                .padding(top = deviceSpecificVerticalPadding)
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -109,7 +121,7 @@ fun NotesScreen(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
-                                if(result == SnackbarResult.ActionPerformed) {
+                                if (result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }
